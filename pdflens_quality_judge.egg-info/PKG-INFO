@@ -1,0 +1,18 @@
+Metadata-Version: 2.4
+Name: pdflens-quality-judge
+Version: 0.1.0
+Summary: Standalone evidence-based quality evaluation for PDFLens PDF, DOCX, metadata and assets
+Requires-Python: >=3.11
+Requires-Dist: fastapi<1,>=0.115
+Requires-Dist: uvicorn[standard]<1,>=0.30
+Requires-Dist: python-multipart<1,>=0.0.9
+Requires-Dist: pydantic<3,>=2.8
+Requires-Dist: python-docx<2,>=1.1
+Requires-Dist: openpyxl<4,>=3.1
+Requires-Dist: pymupdf<2,>=1.24
+Requires-Dist: httpx<1,>=0.27
+Requires-Dist: jsonschema<5,>=4.23
+Requires-Dist: streamlit<2,>=1.40
+Provides-Extra: dev
+Requires-Dist: pytest<9,>=8; extra == "dev"
+Requires-Dist: ruff<1,>=0.6; extra == "dev"

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/canonical-metadata-v1.schema.json",
+  "title": "PDFLens canonical metadata v1",
+  "type": "object",
+  "required": ["schema_version", "document", "processing", "pages", "artifacts"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "document": {
+      "type": "object", "required": ["source_filename", "source_sha256", "page_count"],
+      "properties": {
+        "source_filename": {"type": "string"}, "source_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "page_count": {"type": "integer", "minimum": 0}, "title": {"type": ["string", "null"]},
+        "language": {"type": ["string", "null"]}
+      }, "additionalProperties": false
+    },
+    "processing": {
+      "type": "object", "required": ["parser_name", "parser_version", "status", "requested_fields", "extracted_fields", "missing_fields", "warnings", "errors"],
+      "properties": {
+        "parser_name": {"type": "string"}, "parser_version": {"type": "string"},
+        "model_version": {"type": ["string", "null"]}, "status": {"type": "string"},
+        "requested_fields": {"$ref": "#/$defs/fields"}, "extracted_fields": {"$ref": "#/$defs/fields"},
+        "missing_fields": {"$ref": "#/$defs/fields"},
+        "warnings": {"type": "array", "items": {"type": "string"}}, "errors": {"type": "array", "items": {"type": "string"}}
+      }, "additionalProperties": false
+    },
+    "pages": {"type": "array", "items": {"$ref": "#/$defs/page"}},
+    "artifacts": {"type": "object", "required": ["html_path", "docx_path", "image_paths", "table_snapshot_paths", "manifest_path"],
+      "properties": {"html_path": {"type": ["string", "null"]}, "docx_path": {"type": "string"}, "image_paths": {"type": "array", "items": {"type": "string"}},
+        "table_snapshot_paths": {"type": "array", "items": {"type": "string"}}, "manifest_path": {"type": "string"}}, "additionalProperties": false}
+  },
+  "$defs": {
+    "fields": {"type": "array", "items": {"enum": ["body_text", "heading", "header", "footer", "page_number", "footnote", "hyperlink", "image", "table", "caption", "list", "equation", "form_field", "code", "other"]}},
+    "bbox": {"type": "object", "required": ["x0", "y0", "x1", "y1"], "properties": {
+      "x0": {"type": "number", "minimum": 0, "maximum": 1}, "y0": {"type": "number", "minimum": 0, "maximum": 1},
+      "x1": {"type": "number", "minimum": 0, "maximum": 1}, "y1": {"type": "number", "minimum": 0, "maximum": 1}}, "additionalProperties": false},
+    "element": {"type": "object", "required": ["element_id", "type", "reading_order", "attributes"], "properties": {
+      "element_id": {"type": "string"}, "type": {"enum": ["body_text", "heading", "header", "footer", "page_number", "footnote", "hyperlink", "image", "table", "caption", "list", "equation", "form_field", "code", "other"]},
+      "text": {"type": ["string", "null"]}, "reading_order": {"type": "integer", "minimum": 0}, "bbox": {"anyOf": [{"$ref": "#/$defs/bbox"}, {"type": "null"}]},
+      "confidence": {"type": ["number", "null"], "minimum": 0, "maximum": 1}, "target_uri": {"type": ["string", "null"]},
+      "artifact_path": {"type": ["string", "null"]}, "attributes": {"type": "object"}}, "additionalProperties": false},
+    "page": {"type": "object", "required": ["page_number", "width_pt", "height_pt", "rotation_degrees", "coordinate_system", "elements"], "properties": {
+      "page_number": {"type": "integer", "minimum": 1}, "width_pt": {"type": "number", "exclusiveMinimum": 0}, "height_pt": {"type": "number", "exclusiveMinimum": 0},
+      "rotation_degrees": {"type": "integer"}, "coordinate_system": {"const": "normalized_top_left_0_1"}, "body_text": {"type": "string"}, "elements": {"type": "array", "items": {"$ref": "#/$defs/element"}}}, "additionalProperties": false}
+  },
+  "additionalProperties": false
+}

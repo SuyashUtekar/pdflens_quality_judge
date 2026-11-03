@@ -1,0 +1,15 @@
+README.md
+pyproject.toml
+judge_app/__init__.py
+judge_app/config.py
+judge_app/evaluation.py
+judge_app/evidence.py
+judge_app/ingestion.py
+judge_app/llm.py
+judge_app/main.py
+judge_app/reporting.py
+pdflens_quality_judge.egg-info/PKG-INFO
+pdflens_quality_judge.egg-info/SOURCES.txt
+pdflens_quality_judge.egg-info/dependency_links.txt
+pdflens_quality_judge.egg-info/requires.txt
+pdflens_quality_judge.egg-info/top_level.txt

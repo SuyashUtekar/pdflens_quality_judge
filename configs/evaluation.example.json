@@ -1,0 +1,18 @@
+{
+  "document_id": "example-document",
+  "requested_fields": [
+    "body_text",
+    "heading",
+    "header",
+    "footer",
+    "page_number",
+    "footnote",
+    "hyperlink",
+    "image",
+    "table"
+  ],
+  "conversion_pass_candidate_at": 95,
+  "conversion_review_required_below": 85,
+  "metadata_pass_candidate_at": 95,
+  "metadata_review_required_below": 85
+}
